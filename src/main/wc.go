@@ -41,13 +41,11 @@ func Map(value string) *list.List {
 // output value for that key.
 func Reduce(key string, values *list.List) string {
 
-
 v := 0
 for  i := values.Front(); i!= nil ;i = i.Next(){
-	kvp := i.Value.(*mapreduce.KeyValue)
+	kvp := mapreduce.KeyValue{key,"1" }
 	if kvp.Key  == key {
 	v = v+1
-	fmt.Println(key)
 	}
 }
 
