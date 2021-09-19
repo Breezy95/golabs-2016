@@ -8,6 +8,7 @@ import "unicode"
 import "strings"
 import "strconv"
 
+
 func puncCheck( r rune) bool {
 	return unicode.IsSpace(r) || unicode.IsPunct(r)
 
@@ -27,7 +28,9 @@ func Map(value string) *list.List {
 	var kvplist = list.New()
 	var strarr =  strings.FieldsFunc( value ,puncCheck)
 	for i:= 0; i< len(strarr) ; i++ {
-		var kvp = mapreduce.KeyValue{ Key: strarr[i] , Value : "1"  }
+		var kvp  mapreduce.KeyValue
+		kvp.Key = strarr[i]
+		kvp.Value =  "1"
 		kvplist.PushBack(kvp)
 }
 	return kvplist 
@@ -38,15 +41,16 @@ func Map(value string) *list.List {
 // output value for that key.
 func Reduce(key string, values *list.List) string {
 
+
 v := 0
-for  i :=values.Front(); i!= nil ;i = i.Next(){
-	kvp :=  i.Value.(mapreduce.KeyValue)
+for  i := values.Front(); i!= nil ;i = i.Next(){
+	kvp := i.Value.(*mapreduce.KeyValue)
 	if kvp.Key  == key {
 	v = v+1
+	fmt.Println(key)
+	}
 }
 
-
-}
 ans := strconv.Itoa(v)
 
 return ans
