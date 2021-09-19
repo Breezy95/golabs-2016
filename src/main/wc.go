@@ -10,7 +10,7 @@ import "strconv"
 
 
 func puncCheck( r rune) bool {
-	return unicode.IsSpace(r) || unicode.IsPunct(r)
+	return unicode.IsSpace(r) || unicode.IsPunct(r) || unicode.IsNumber(r)
 
 }
 
@@ -33,6 +33,9 @@ func Map(value string) *list.List {
 		kvp.Value =  "1"
 		kvplist.PushBack(kvp)
 }
+//for i:= kvplist.Front(); i!= nil; i = i.Next() {
+//	        fmt.Println(i.Value.(mapreduce.KeyValue).Key)
+//	}
 	return kvplist 
 }
 
@@ -43,17 +46,11 @@ func Reduce(key string, values *list.List) string {
 
 v := 0
 for  i := values.Front(); i!= nil ;i = i.Next(){
-	kvp := mapreduce.KeyValue{key,"1" }
-	if kvp.Key  == key {
 	v = v+1
-	}
 }
 
 ans := strconv.Itoa(v)
-
 return ans
-
-
 
 }
 
